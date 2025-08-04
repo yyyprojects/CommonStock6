@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: A Visual Guide to Common Stock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Brilliant Blues -->
+    <!-- Application Structure Plan: The infographic follows a linear narrative designed for a beginner, starting with a hook ("What is a stock?"), then progressively building on concepts: 1. Core Definition (Ownership), 2. Shareholder Rights, 3. Value & Risk, 4. Comparison (Common vs. Preferred), and 5. How it's Traded (IPO & Markets). This structure logically guides the user from simple to complex topics. Each section uses a combination of large text, icons, and a primary visualization to tell a coherent story with the data. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Fractional Ownership. -> Goal: Inform. -> Viz/Method: Donut Chart. -> Justification: Visually represents a small piece of a larger whole. -> Library/Method: Chart.js (Canvas).
+        - Report Info: Shareholder Rights. -> Goal: Inform/Organize. -> Viz/Method: Icon-based cards. -> Justification: Breaks down the three key rights into easily scannable, visually distinct blocks. -> Library/Method: HTML/CSS with Unicode characters.
+        - Report Info: Liquidation Payout Hierarchy. -> Goal: Organize/Compare. -> Viz/Method: Custom HTML/CSS pyramid diagram. -> Justification: Clearly shows the "last in line" position of common stockholders in a hierarchical format. -> Library/Method: HTML/Tailwind.
+        - Report Info: Value (Capital Gains/Dividends) vs. Risk (Volatility). -> Goal: Compare/Change. -> Viz/Method: Line Chart. -> Justification: Effectively visualizes the concept of market volatility and potential for growth over time. -> Library/Method: Chart.js (Canvas).
+        - Report Info: Common vs. Preferred Stock. -> Goal: Compare. -> Viz/Method: Grouped Bar Chart. -> Justification: Provides a direct, quantitative-style comparison of key features like voting power and dividend priority. -> Library/Method: Chart.js (Canvas).
+        - Report Info: IPO Process. -> Goal: Organize. -> Viz/Method: Vertical HTML/CSS flowchart. -> Justification: Simplifies the multi-step IPO process into a clear, easy-to-follow visual path. -> Library/Method: HTML/Tailwind.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .bg-brand-deep-blue { background-color: #003f5c; }
+        .bg-brand-purple { background-color: #7a5195; }
+        .bg-brand-pink { background-color: #ef5675; }
+        .text-brand-orange { color: #ff764a; }
+        .text-brand-yellow { color: #ffa600; }
+        .border-brand-yellow { border-color: #ffa600; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <header class="text-center my-12">
+            <h1 class="text-5xl md:text-6xl font-extrabold bg-brand-deep-blue text-white py-4 px-2 rounded-lg">A Visual Guide to Common Stock</h1>
+            <p class="mt-4 text-xl text-gray-600">Understanding your piece of the pie in the U.S. market.</p>
+        </header>
+
+        <section class="my-16">
+            <div class="bg-white rounded-lg shadow-xl p-8 grid md:grid-cols-2 gap-8 items-center">
+                <div class="text-center md:text-left">
+                    <h2 class="text-4xl font-bold text-brand-purple">What is a Common Stock?</h2>
+                    <p class="mt-4 text-lg">Think of a company as a whole pizza. Buying a common stock means you're not just buying a slice, you're buying a tiny piece of the entire pizza business. You become a part-owner, also known as a shareholder.</p>
+                    <p class="mt-4 text-lg font-semibold">It's a <span class="text-brand-orange">fractional ownership</span> that gives you a <span class="text-brand-orange">claim on the company's future success.</span></p>
+                </div>
+                <div class="chart-container h-64 md:h-72">
+                    <canvas id="ownershipPieChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-brand-deep-blue">Your Shareholder Superpowers</h2>
+                <p class="mt-2 text-lg text-gray-600">Ownership comes with three fundamental rights.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center border-t-4 border-brand-purple">
+                    <div class="text-5xl mb-4">✔️</div>
+                    <h3 class="text-2xl font-bold">Voting Rights</h3>
+                    <p class="mt-2">You get a say. Shareholders vote on major company decisions, like electing the board of directors who oversee the CEO.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center border-t-4 border-brand-pink">
+                    <div class="text-5xl mb-4">💰</div>
+                    <h3 class="text-2xl font-bold">Dividend Rights</h3>
+                    <p class="mt-2">You can share in the profits. If the company does well, it may distribute a portion of its earnings to you as cash payments.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center border-t-4 border-brand-orange">
+                    <div class="text-5xl mb-4">📉</div>
+                    <h3 class="text-2xl font-bold">Liquidation Rights</h3>
+                    <p class="mt-2">You have a claim on what's left. If the company is sold off, you get a share of the remaining assets, but only after all debts are paid.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16">
+            <div class="bg-white rounded-lg shadow-xl p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-bold text-brand-deep-blue">The Payout Hierarchy</h2>
+                    <p class="mt-2 text-lg text-gray-600">In case of bankruptcy, there's a strict pecking order for who gets paid. Common stockholders are last in line, which is the core risk of this investment.</p>
+                </div>
+                <div class="max-w-md mx-auto">
+                    <div class="relative text-center text-white font-bold">
+                        <div class="bg-brand-deep-blue p-4 rounded-t-lg">
+                            <span class="text-xl">1. Creditors & Bondholders</span>
+                            <span class="block text-sm font-normal">Lenders get paid first</span>
+                        </div>
+                        <div class="bg-brand-purple p-4">
+                            <span class="text-xl">2. Preferred Stockholders</span>
+                            <span class="block text-sm font-normal">Next in line</span>
+                        </div>
+                        <div class="bg-brand-pink p-4 rounded-b-lg">
+                            <span class="text-xl">3. Common Stockholders</span>
+                            <span class="block text-sm font-normal">Receive what's left (if anything)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-brand-deep-blue">The Risk vs. Reward Equation</h2>
+                <p class="mt-2 text-lg text-gray-600">Common stock offers high growth potential but comes with higher volatility.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-xl p-8">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-green-600 mb-2">📈 The Reward: Value Generation</h3>
+                        <p><strong class="text-brand-purple">Capital Appreciation:</strong> The primary goal. Your shares become more valuable as the company grows. There's no limit to how high the price can go.</p>
+                        <p class="mt-2"><strong class="text-brand-pink">Dividend Income:</strong> A bonus. Regular cash payments from established, profitable companies.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-red-600 mb-2">⚠️ The Risk: Volatility</h3>
+                        <p>Stock prices can fluctuate wildly due to company performance or market events. This chart shows a hypothetical stock's journey, illustrating the ups and downs (volatility) an investor might face.</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="volatilityChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16">
+            <div class="bg-white rounded-lg shadow-xl p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-bold text-brand-deep-blue">Common vs. Preferred Stock</h2>
+                    <p class="mt-2 text-lg text-gray-600">Companies issue two main types of stock. This chart compares their key features, showing why common stock has more risk and more reward.</p>
+                </div>
+                <div class="chart-container h-96 md:h-[450px]">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-16">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-brand-deep-blue">The Journey to the Market</h2>
+                <p class="mt-2 text-lg text-gray-600">How does a private company's stock end up in your hands? It starts with an IPO.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-xl p-8">
+                    <h3 class="text-2xl font-bold text-center mb-6 text-brand-purple">The IPO Process</h3>
+                    <div class="relative pl-8">
+                        <div class="absolute left-2 h-full border-l-4 border-brand-yellow"></div>
+                        <div class="mb-8 relative">
+                            <div class="absolute -left-[22px] top-1 h-6 w-6 rounded-full bg-brand-yellow border-4 border-white"></div>
+                            <h4 class="font-bold">1. Hire Investment Bank</h4>
+                            <p class="text-sm text-gray-600">The company hires an expert underwriter to guide the process.</p>
+                        </div>
+                        <div class="mb-8 relative">
+                            <div class="absolute -left-[22px] top-1 h-6 w-6 rounded-full bg-brand-yellow border-4 border-white"></div>
+                            <h4 class="font-bold">2. File with SEC</h4>
+                            <p class="text-sm text-gray-600">Intense paperwork (Form S-1) is filed for regulatory approval.</p>
+                        </div>
+                        <div class="mb-8 relative">
+                            <div class="absolute -left-[22px] top-1 h-6 w-6 rounded-full bg-brand-yellow border-4 border-white"></div>
+                            <h4 class="font-bold">3. Set the Price</h4>
+                            <p class="text-sm text-gray-600">After gauging investor interest, the initial share price is set.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-[22px] top-1 h-6 w-6 rounded-full bg-brand-yellow border-4 border-white"></div>
+                            <h4 class="font-bold">4. Go Public!</h4>
+                            <p class="text-sm text-gray-600">Shares are sold to the public and begin trading on an exchange.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-xl p-8">
+                    <h3 class="text-2xl font-bold text-center mb-6 text-brand-pink">Primary vs. Secondary Market</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-xl">Primary Market</h4>
+                            <p class="text-gray-600">This is the IPO. The company sells its new shares directly to investors. The money goes <strong class="text-brand-orange">to the company</strong> to fund growth.</p>
+                            <p class="text-center font-mono text-lg mt-2">Company 🏢 ➔ 💰 ➔ Investor 🧑‍💼</p>
+                        </div>
+                        <hr/>
+                        <div>
+                            <h4 class="font-bold text-xl">Secondary Market</h4>
+                            <p class="text-gray-600">This is the stock exchange (e.g., NYSE, NASDAQ). Investors trade already-issued shares <strong class="text-brand-orange">among themselves</strong>. The company isn't involved.</p>
+                            <p class="text-center font-mono text-lg mt-2">Investor 🧑‍💼 ➔ 📈 ➔ Investor 👩‍💻</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const wrapLabel = (label) => {
+                if (label.length <= 16) return label;
+                const words = label.split(' ');
+                let lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + word).length > 16) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                }
+                lines.push(currentLine.trim());
+                return lines;
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                return Array.isArray(label) ? label.join(' ') : label;
+            };
+            
+            new Chart(document.getElementById('ownershipPieChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Other Investors', 'Your Share'],
+                    datasets: [{
+                        data: [99.9, 0.1],
+                        backgroundColor: ['#003f5c', '#ffa600'],
+                        borderColor: '#ffffff',
+                        borderWidth: 4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        title: { display: true, text: 'Your Fractional Ownership', font: { size: 16 } },
+                        tooltip: { callbacks: { title: tooltipTitleCallback } }
+                    },
+                    cutout: '70%'
+                }
+            });
+
+            new Chart(document.getElementById('volatilityChart'), {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 12}, (_, i) => `Month ${i+1}`),
+                    datasets: [{
+                        label: 'Stock Value',
+                        data: [50, 55, 62, 58, 65, 75, 70, 80, 78, 88, 95, 100],
+                        borderColor: '#ef5675',
+                        backgroundColor: 'rgba(239, 86, 117, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: 'Hypothetical Stock Price Over Time', font: { size: 16 } },
+                        tooltip: { callbacks: { title: tooltipTitleCallback } }
+                    },
+                    scales: { y: { ticks: { callback: (value) => '$' + value } } }
+                }
+            });
+
+            new Chart(document.getElementById('comparisonChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Voting Rights', ['Dividend', 'Priority'], ['Liquidation', 'Priority'], ['Growth', 'Potential']],
+                    datasets: [
+                        {
+                            label: 'Common Stock',
+                            data: [10, 5, 2, 10],
+                            backgroundColor: '#7a5195',
+                        },
+                        {
+                            label: 'Preferred Stock',
+                            data: [1, 10, 8, 3],
+                            backgroundColor: '#ff764a',
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        title: { display: true, text: 'Feature Score (Higher is Better/Stronger)', font: { size: 16 } },
+                        legend: { position: 'top' },
+                        tooltip: { callbacks: { title: tooltipTitleCallback } }
+                    },
+                    scales: {
+                        x: { beginAtZero: true, max: 11, ticks: { display: false } },
+                        y: { ticks: { font: { size: 14 } } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
